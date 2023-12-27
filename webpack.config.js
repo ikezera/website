@@ -7,6 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV == 'production';
 const stylesHandler = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
@@ -50,7 +51,6 @@ const config = {
     }),
 
     new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
       filename: './src/css/style.css',
       chunkFilename: 'style_chk.css',
     }),
@@ -64,7 +64,7 @@ const config = {
       ],
     }),
     new HtmlWebpackPlugin({
-      template: './index.html', // Path to your main HTML template
+      template: './index.html',
       inject: 'body',
       minify: {
         collapseWhitespace: true,
@@ -76,13 +76,17 @@ const config = {
       },
     }),
   ],
+  optimization: {
+    minimizer: [
+      new CssMinimizerPlugin(), // Add this line
+    ],
+  },
 };
 
 module.exports = () => {
   if (isProduction) {
     config.mode = 'production';
-
-    config.plugins.push(new WorkboxWebpackPlugin.GenerateSW());
+    // config.plugins.push(new WorkboxWebpackPlugin.GenerateSW());
   } else {
     config.mode = 'development';
   }

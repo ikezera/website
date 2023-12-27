@@ -1,1 +1,1 @@
-function sample(){}
+function sample() {}
