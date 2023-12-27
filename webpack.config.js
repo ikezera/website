@@ -20,7 +20,7 @@ const config = {
     static: {
       directory: path.resolve(__dirname, 'dist'),
     },
-    watchFiles: ['src/**/*.html', 'src/**/*.css', 'src/**/*.scss', 'index.html'],
+    watchFiles: ['src/**/*.html', 'src/**/*.css', 'index.html'],
     open: true,
   },
   module: {
@@ -33,10 +33,7 @@ const config = {
         test: /\.css$/i,
         use: [stylesHandler, 'css-loader'],
       },
-      {
-        test: /\.s[ac]ss$/i,
-        use: [stylesHandler, 'css-loader', 'sass-loader'],
-      },
+
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
         type: 'asset',
@@ -51,6 +48,13 @@ const config = {
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: ['dist/**/*'],
     }),
+
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      filename: './src/css/style.css',
+      chunkFilename: 'style_chk.css',
+    }),
+
     new CopyWebpackPlugin({
       patterns: [
         { from: 'src/css', to: 'css' },
@@ -58,9 +62,6 @@ const config = {
         { from: 'src/assets', to: 'assets' },
         { from: 'src/fonts', to: 'fonts' },
       ],
-    }),
-    new MiniCssExtractPlugin({
-      filename: 'css/style.css',
     }),
     new HtmlWebpackPlugin({
       template: './index.html', // Path to your main HTML template
