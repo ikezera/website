@@ -1,5 +1,15 @@
-# Ikezera Website
-Personal website source
+# 🚀 Welcome to your new awesome project!
 
-## version
-0.0.1
+This project has been created using **webpack-cli**, you can now run
+
+```
+npm run build
+```
+
+or
+
+```
+yarn build
+```
+
+to bundle your application

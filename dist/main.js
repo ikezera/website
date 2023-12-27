@@ -1,0 +1,1 @@
+(()=>{"use strict";document.getElementById("header").innerHTML='<section class="header-section bb-green"> <div class="container"> <h1>Header Component ed</h1> </div> </section> '})();
